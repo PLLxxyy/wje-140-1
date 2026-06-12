@@ -26,14 +26,14 @@ export class VehicleService {
     if (!vehicle) {
       return { available: false, reason: `车辆 ID ${id} 不存在` };
     }
+    if (vehicle.status === VehicleStatus.OnTrip) {
+      return { available: false, reason: '车辆已派车/执行中，不可重复指派' };
+    }
     if (vehicle.status === VehicleStatus.Maintenance) {
-      return { available: false, reason: '车辆处于保养/维修状态，不可指派' };
+      return { available: false, reason: '车辆保养/维修中，不可指派' };
     }
     if (vehicle.status === VehicleStatus.Retired) {
       return { available: false, reason: '车辆已报废，不可指派' };
-    }
-    if (vehicle.status === VehicleStatus.OnTrip) {
-      return { available: false, reason: '车辆正在执行任务中，不可重复指派' };
     }
     const activeMaintenance = this.maintenanceService.findAll().find(
       (m: any) => m.vehicleId === id && m.status === 'InProgress'
