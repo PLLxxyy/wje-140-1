@@ -4,7 +4,7 @@ import { VehicleService } from './vehicle.service';
 
 const VALID_TRANSITIONS: Record<string, DispatchStatus[]> = {
   [DispatchStatus.Draft]: [DispatchStatus.Assigned, DispatchStatus.InProgress, DispatchStatus.Cancelled],
-  [DispatchStatus.Assigned]: [DispatchStatus.InProgress, DispatchStatus.Cancelled],
+  [DispatchStatus.Assigned]: [DispatchStatus.InProgress, DispatchStatus.Completed, DispatchStatus.Cancelled],
   [DispatchStatus.InProgress]: [DispatchStatus.Completed, DispatchStatus.Cancelled],
   [DispatchStatus.Completed]: [],
   [DispatchStatus.Cancelled]: [],
